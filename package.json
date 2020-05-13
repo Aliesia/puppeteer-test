@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Aliesia/puppeteer-test#readme",
   "dependencies": {
+    "chalk": "^4.0.0",
+    "cherio": "^1.0.0-rc.2",
     "puppeteer": "^3.0.4"
   }
 }
