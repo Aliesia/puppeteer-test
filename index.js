@@ -11,7 +11,20 @@ const SITE = 'https://royaleapi.com/clan/89VLQR0';
 (async () => {
   try{
     let content = await getPageContent(SITE);
-    console.log(content);
+    let $ = cherio.load(content);
+    let clanMembers = [];
+
+    $('#roster tbody tr').each((i, siteMember) => {
+      let tag = $(siteMember).attr('data-tag');
+      let role = $(siteMember).attr('data-role');
+    
+      clanMembers.push({
+        'tag': tag,
+        'role': role
+      })
+    })
+
+    console.log(clanMembers);
 
   }catch (error){
     console.log(chalk.red('error: \n'));
