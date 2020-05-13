@@ -1,10 +1,20 @@
-const puppeteer = require('puppeteer');
+import cherio from 'cherio';
+import chalk from 'chalk';
+
+import {getPageContent} from './helpers/puppeteer.js';
+
+
+const SITE = 'https://royaleapi.com/clan/89VLQR0';
+
+
 
 (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('https://github.com');
-  await page.screenshot({path: 'example.png'});
+  try{
+    let content = await getPageContent(SITE);
+    console.log(content);
 
-  await browser.close();
+  }catch (error){
+    console.log(chalk.red('error: \n'));
+    console.log(error);
+  }
 })();
