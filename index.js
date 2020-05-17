@@ -17,10 +17,17 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
     $('#roster tbody tr').each((i, siteMember) => {
       let tag = $(siteMember).attr('data-tag');
       let role = $(siteMember).attr('data-role');
-    
+      let name = $(siteMember).find('td:nth-of-type(2)').attr('data-sort-value');
+      let joinStatus = $(siteMember).find('td:nth-of-type(2) .join_status').text();
+
       clanMembers[tag] = {
-        'role': role
+        role: role,
+        name: name
       };
+      
+      if(joinStatus.replace(/\s/g,"") != ""){
+        clanMembers[tag].join_status = joinStatus;
+      }
     })
 
 
@@ -36,6 +43,7 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
       if (!clanMembers[tag]) {
         return;
       }
+
       clanMembers[tag].mia = mia;
       
     })
