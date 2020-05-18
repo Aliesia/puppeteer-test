@@ -10,7 +10,7 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
 
 (async () => {
   try{
-    let content = await getPageContent(SITE);
+    let content = await getPageContent(SITE, 'Info');
     let $ = cherio.load(content);
     let clanMembers = [];
 
@@ -31,7 +31,7 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
     })
 
 
-    let warContent = await getPageContent(WARPAGE);
+    let warContent = await getPageContent(WARPAGE, 'warPage');
 
     $.load(warContent);
     $ = cherio.load(warContent);

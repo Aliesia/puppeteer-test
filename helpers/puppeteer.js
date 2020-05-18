@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path'
 
 export const LAUNCH_PUPPETEER_OPTS = {
     args: [
@@ -17,12 +19,32 @@ export const PAGE_PUPPETEER_OPTS = {
     timeout: 3000000
   };
 
-export async function getPageContent(url){
+export async function getPageContent(url, fileName = null){
     let browser = await puppeteer.launch(LAUNCH_PUPPETEER_OPTS);
     let page = await browser.newPage();
     await page.goto(url, PAGE_PUPPETEER_OPTS);
+    let folderPath = path.join(path.dirname(''), 'data', getDateString());
+    await fs.promises.mkdir(folderPath,{recursive:true});
+  
+
+    await page.pdf({ 
+      path: folderPath + '/'+ fileName +'.pdf',
+      format: 'A4',
+      landscape: true
+    })
+
     let content = await page.content();
     await browser.close();
     
     return content;
+}
+
+function getDateString() {
+  const date = new Date();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day =`${date.getDate()}`.padStart(2, '0');
+  const minutes = date.getMinutes();
+  const hour = date.getHours();
+
+  return `${month}.${day}_${hour}-${minutes}`
 }
