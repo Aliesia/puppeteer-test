@@ -23,20 +23,28 @@ export async function getPageContent(url, fileName = null){
     let browser = await puppeteer.launch(LAUNCH_PUPPETEER_OPTS);
     let page = await browser.newPage();
     await page.goto(url, PAGE_PUPPETEER_OPTS);
-    let folderPath = path.join(path.dirname(''), 'data', getDateString());
-    await fs.promises.mkdir(folderPath,{recursive:true});
-  
 
-    await page.pdf({ 
-      path: folderPath + '/'+ fileName +'.pdf',
-      format: 'A4',
-      landscape: true
-    })
+    if (fileName){
+      await generatePDF(page, fileName);
+    }
 
     let content = await page.content();
     await browser.close();
     
     return content;
+}
+
+async function generatePDF(page, fileName){
+
+  let folderPath = path.join(path.dirname(''), 'data', getDateString());
+  await fs.promises.mkdir(folderPath,{recursive:true});
+
+  await page.pdf({ 
+    path: folderPath + '/'+ fileName +'.pdf',
+    format: 'A4',
+    landscape: true
+  })
+
 }
 
 function getDateString() {
