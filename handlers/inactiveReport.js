@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 
-export default async function inactiveMembersReport(memberList){
+export default async function inactiveMembersReport(data){
     let inactiveMembers = []
   
-    for (let [tag, member] of Object.entries(memberList)){
-        if(!('mia' in member) && !('join_status' in member)){
-          inactiveMembers.push(member.name);
+    for (let [key, value] of Object.entries(data)){
+        if(!('mia' in value) && !('join_status' in value)){
+          inactiveMembers.push(value.name);
         }
     }
     
