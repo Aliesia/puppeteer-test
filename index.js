@@ -12,7 +12,7 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
   try{
     let content = await getPageContent(SITE, 'Info');
     let $ = cherio.load(content);
-    let clanMembers = [];
+    let clanMembers = {};
 
     $('#roster tbody tr').each((i, siteMember) => {
       let tag = $(siteMember).attr('data-tag');
@@ -22,7 +22,8 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
 
       clanMembers[tag] = {
         role: role,
-        name: name
+        name: name,
+        tag:tag
       };
       
       if(joinStatus.replace(/\s/g,"") != ""){
@@ -47,11 +48,26 @@ const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
       clanMembers[tag].mia = mia;
       
     })
-    console.log(clanMembers)
-
-  
+    inactiveMembersReport(clanMembers);
+    
   }catch (error){
     console.log(chalk.red('error: \n'));
     console.log(error);
   }
 })();
+
+function inactiveMembersReport(memberList){
+  let inactiveMembers = []
+
+  for (let [tag, member] of Object.entries(memberList)){
+      if(!('mia' in member) && !('join_status' in member)){
+        inactiveMembers.push(member.name);
+      }
+  }
+  
+  console.log(chalk.magenta('Players without participation in last 10 wars'));
+  console.log(inactiveMembers);
+  console.log(chalk.magenta('Total: ' + inactiveMembers.length));
+
+  return inactiveMembers;
+}
