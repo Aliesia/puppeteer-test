@@ -1,7 +1,9 @@
 import {getPageContent} from '../helpers/puppeteer.js';
 import cherio from 'cherio';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const SITE = 'https://royaleapi.com/clan/89VLQR0';
+const SITE = process.env.CLAN_URL
 
 export default async function clanDataImporter(){
 

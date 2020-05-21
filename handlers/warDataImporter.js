@@ -1,7 +1,9 @@
 import {getPageContent} from '../helpers/puppeteer.js';
 import cherio from 'cherio';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const WARPAGE = 'https://royaleapi.com/clan/89VLQR0/war/analytics';
+const WARPAGE = process.env.CLAN_URL + '/war/analytics';
 
 export default async function warDataImporter(clanMembers){
 
