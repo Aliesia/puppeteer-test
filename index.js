@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 
 import inactiveMembersReport from './handlers/inactiveReport.js'
+import warBattlesReport from './handlers/warBattlesReport.js'
 import clanDataImporter from './handlers/clanDataImporter.js'
 import warDataImporter from './handlers/warDataImporter.js'
 
@@ -12,6 +13,7 @@ import warDataImporter from './handlers/warDataImporter.js'
     let warData = await warDataImporter(clanMembers);
 
     inactiveMembersReport(warData);
+    warBattlesReport(warData);
     
 
   }catch (error){
