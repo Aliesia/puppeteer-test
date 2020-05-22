@@ -12,19 +12,19 @@ export default async function warDataImporter(clanMembers){
 
     $('.war_table_wrapper tbody .war_member').each((i, contentRowLink) => {
       let tag = $(contentRowLink).attr('data-tag');
-      let mia = $(contentRowLink).find('td:nth-of-type(4)').attr('data-sort-value');
       let lastBattlesScore =
-      parseInt($(contentRowLink).find('td:nth-child(5)').attr('data-sort-value')) + 
-      parseInt($(contentRowLink).find('td:nth-child(6)').attr('data-sort-value')) + 
-      parseInt($(contentRowLink).find('td:nth-child(7)').attr('data-sort-value'));
-
+        parseInt($(contentRowLink).find('td:nth-child(5)').attr('data-sort-value')) + 
+        parseInt($(contentRowLink).find('td:nth-child(6)').attr('data-sort-value')) + 
+        parseInt($(contentRowLink).find('td:nth-child(7)').attr('data-sort-value'));
 
       if (!clanMembers[tag]) {
         return;
       }
 
-      clanMembers[tag].mia = mia;
+      clanMembers[tag].mia = $(contentRowLink).find('td:nth-of-type(4)').attr('data-sort-value');
       clanMembers[tag].lastBattlesScore = lastBattlesScore;
+      clanMembers[tag].winRate = $(contentRowLink).text('td:nth-child(2)');
+      clanMembers[tag].battlesCount = $(contentRowLink).text('td:nth-child(3)');
 
     })
 
