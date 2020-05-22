@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 export async function missBattlePlayers(data){
     let missBattleMembers = [];
 
@@ -8,10 +6,6 @@ export async function missBattlePlayers(data){
       missBattleMembers.push([value.name, value.tag, value.lastBattlesScore]);
       }
     }
-    
-    console.log(chalk.cyan('Players not participating in last 3 wars'));
-    console.log(missBattleMembers);
-    console.log(chalk.cyan('Total: ' + missBattleMembers.length));
   
     return missBattleMembers;
   }
@@ -25,10 +19,6 @@ export async function topPlayersRank(data){
     }
   }
 
-    console.log(chalk.greenBright('Players win in last 3 wars'));
-    console.log(topBattleMembers);
-    console.log(chalk.greenBright('Total: ' + topBattleMembers.length));
-
     return topBattleMembers;
 }
 
@@ -40,8 +30,6 @@ export async function bestWinRate(data){
         topPlayer = player;
       }
     }
-    
-    console.log(chalk.white('Best player ever is ' + topPlayer.name))
 
     return topPlayer;
 }
