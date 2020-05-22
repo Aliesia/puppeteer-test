@@ -31,3 +31,17 @@ export async function topPlayersRank(data){
 
     return topBattleMembers;
 }
+
+export async function bestWinRate(data){
+  let topPlayer = false;
+
+    for(let [tag, player] of Object.entries(data)){
+      if((player.battlesCount > 7) && ( !topPlayer || (player.winRate > topPlayer.winRate))){
+        topPlayer = player;
+      }
+    }
+    
+    console.log(chalk.white('Best player ever is ' + topPlayer.name))
+
+    return topPlayer;
+}

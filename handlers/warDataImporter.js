@@ -21,10 +21,10 @@ export default async function warDataImporter(clanMembers){
         return;
       }
 
-      clanMembers[tag].mia = $(contentRowLink).find('td:nth-of-type(4)').attr('data-sort-value');
+      clanMembers[tag].mia = parseInt($(contentRowLink).find('td:nth-of-type(4)').attr('data-sort-value'));
       clanMembers[tag].lastBattlesScore = lastBattlesScore;
-      clanMembers[tag].winRate = $(contentRowLink).text('td:nth-child(2)');
-      clanMembers[tag].battlesCount = $(contentRowLink).text('td:nth-child(3)');
+      clanMembers[tag].winRate = parseInt($(contentRowLink).find('td:nth-child(2)').text());
+      clanMembers[tag].battlesCount = parseInt($(contentRowLink).find('td:nth-child(3)').text());
 
     })
 

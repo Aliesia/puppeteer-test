@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import inactiveMembersReport from './handlers/inactiveReport.js'
-import {missBattlePlayers, topPlayersRank} from './handlers/warBattlesReport.js'
+import {missBattlePlayers, topPlayersRank, bestWinRate} from './handlers/warBattlesReport.js'
 import clanDataImporter from './handlers/clanDataImporter.js'
 import warDataImporter from './handlers/warDataImporter.js'
 
@@ -14,6 +14,7 @@ import warDataImporter from './handlers/warDataImporter.js'
     inactiveMembersReport(warData);
     missBattlePlayers(warData);
     topPlayersRank(warData);
+    bestWinRate(warData);
     
 
   }catch (error){
