@@ -1,17 +1,16 @@
 {
-  "name": "puppeteer-test",
+  "name": "clan-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "clash royale telegram helper bot",
   "main": "helpers/telegram.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node helpers/telegram.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aliesia/puppeteer-test.git"
   },
-  "author": "",
+  "author": "Aliesia",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Aliesia/puppeteer-test/issues"
