@@ -1,8 +1,12 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path'
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const LAUNCH_PUPPETEER_OPTS = {
+  executablePath: process.env.CHROMEDRIVER_URL,
+
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
