@@ -59,7 +59,7 @@ bot.on('message', async (msg) => {
             inactiveMembers.join(' \n') + ' \n' + 
             '<b>Всього: </b> '  + inactiveMembers.length, {parse_mode : "HTML"});
         } else {
-            await bot.sendMessage(msg.chat.id,'Ура! Не знайдено жодного такого гравця!' + emoji.happy)
+            await bot.sendMessage(msg.chat.id,'Ура! Не знайдено жодного такого гравця!' + emoji.grinning)
         }
     }
 
@@ -70,7 +70,7 @@ bot.on('message', async (msg) => {
             missBattleMembers.join(' \n') + ' \n' + 
             '<b>Всього:</b> '  + missBattleMembers.length, {parse_mode : "HTML"});
         } else {
-            await bot.sendMessage(msg.chat.id,'Здивувався, але не знайшов жодного такого гравця' + emoji.happy)
+            await bot.sendMessage(msg.chat.id,'Здивувався, але не знайшов жодного такого гравця' + emoji.sign_of_the_horns)
         }
     }
 
