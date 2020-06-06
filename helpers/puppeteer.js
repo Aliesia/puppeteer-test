@@ -18,9 +18,9 @@ export const LAUNCH_PUPPETEER_OPTS = {
   };
   
 export const PAGE_PUPPETEER_OPTS = {
-    networkIdle2Timeout: 5000,
+    networkIdle2Timeout: 5 * 1000,
     waitUntil: 'networkidle2',
-    timeout: 3000000
+    timeout: 1 * 60 * 1000
   };
 
 export async function getPageContent(url, fileName = null){
