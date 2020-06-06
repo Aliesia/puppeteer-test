@@ -3,7 +3,7 @@ export async function missBattlePlayers(data){
 
     for (let [key, value] of Object.entries(data)){
       if(value.lastBattlesScore == 0){
-      missBattleMembers.push([value.name, value.tag, value.lastBattlesScore]);
+      missBattleMembers.push([value.name + ' [' + value.tag + ']']);
       }
     }
   
@@ -15,7 +15,7 @@ export async function topPlayersRank(data){
 
   for(let [key, value] of Object.entries(data)){
     if(value.lastBattlesScore > 32){
-      topBattleMembers.push([value.name, value.tag, value.lastBattlesScore]);
+      topBattleMembers.push([value.name + ' [' + value.tag + ']']);
     }
   }
 

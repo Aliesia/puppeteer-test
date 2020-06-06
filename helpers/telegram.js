@@ -23,7 +23,7 @@ bot.on('message', async (msg) => {
     if (isInit) {
         await bot.sendMessage(msg.chat.id,'Оновлюю інформацію ...');
         warData = await getData();
-        await bot.sendMessage(msg.chat.id,'Оновлено!');
+        response = response + 'Оновлено!' + ' \n' + ' \n';
     } 
 
     if (msg.text.toString().toLowerCase().indexOf('хай') === 0) {
@@ -46,12 +46,12 @@ bot.on('message', async (msg) => {
             let topBattleMembers = await topPlayersRank(warData);
 
             if (topBattleMembers.length != 0){
-                return 'Гравці, які виграли у 3х останніх клан війнах' + emoji.confetti_ball + ':' + ' \n' + ' \n'+
+                return 'Виграли у 3х останніх клан війнах' + emoji.confetti_ball + ':' + ' \n'+
                 topBattleMembers.join(' \n') + ' \n' + 
-                '<b>Всього:</b> ' + topBattleMembers.length + ' \n';
+                '<b>Всього:</b> ' + topBattleMembers.length + ' \n' + ' \n';
             } 
 
-            return 'Шукав усюди, але не вдалось знайти жодного такого гравця' + emoji.sad + ' \n';
+            return 'Шкода, але не вдалось знайти кандидатів на підвищення' + emoji.sad + ' \n' + ' \n';
         }   
 
         response = response + await fetchTopPlayerRank(warData);
@@ -62,12 +62,12 @@ bot.on('message', async (msg) => {
             let inactiveMembers = await inactiveMembersReport(warData);
         
             if (inactiveMembers.length != 0){
-                return 'Гравці, які не брали участь у 10 останніх кв' + emoji.scream + ':' +' \n' + ' \n' +
+                return 'Не брали участь у 10 останніх кв' + emoji.scream + ':' + ' \n' +
                 inactiveMembers.join(' \n') + ' \n' + 
-                '<b>Всього: </b> '  + inactiveMembers.length + ' \n';
+                '<b>Всього: </b> '  + inactiveMembers.length + ' \n' + ' \n';
             } 
             
-            return 'Ура! Не знайдено жодного такого гравця!' + emoji.grinning + ' \n';
+            return 'Прикинь, відсутні гравці, що взагалі не грали у кв! ' + emoji.grinning + ' \n' + ' \n';
         }
 
         response = response + await fetchInactiveMembersReport(warData);
@@ -78,12 +78,12 @@ bot.on('message', async (msg) => {
             let missBattleMembers = await missBattlePlayers(warData);
 
             if (missBattleMembers.length != 0){
-                return 'Гравці, які не взяли участь у 3х останніх кв' + emoji.angry + ':' + ' \n' + ' \n' +
+                return 'Не взяли участь у 3х останніх кв' + emoji.angry + ':' + ' \n' +
                 missBattleMembers.join(' \n') + ' \n' + 
-                '<b>Всього:</b> '  + missBattleMembers.length + ' \n';
+                '<b>Всього:</b> '  + missBattleMembers.length + ' \n' + ' \n';
             } 
             
-            return 'Здивувався, але не знайшов жодного такого гравця' + emoji.sign_of_the_horns + ' \n';
+            return 'Здивувався, але прогулів у 3х останніх кв не знайшов' + emoji.sign_of_the_horns + ' \n' + ' \n';
         }
 
         response = response + await fetchMissBattlePlayers(warData); 
@@ -94,7 +94,7 @@ bot.on('message', async (msg) => {
             let topPlayer = await bestWinRate(warData);
 
             if (topPlayer != false){
-                return 'Гравець з найкращим рейтингом у клан війнах' + emoji.sunny + '=>' + ' \n' + '<b>' + topPlayer.name +'</b>' + ' \n';
+                return 'Гравець з найкращим рейтингом у клан війнах' + ' \n' + emoji.sunny + '=>' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + ']' + '</b>' + ' \n';
             } 
             
             return 'Не знайдено достойного гравця' + emoji.cry + ' \n';
