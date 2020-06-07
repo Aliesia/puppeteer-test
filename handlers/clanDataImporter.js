@@ -16,12 +16,15 @@ $('#roster tbody tr').each((i, siteMember) => {
   let tag = $(siteMember).attr('data-tag');
   let role = $(siteMember).attr('data-role');
   let name = $(siteMember).find('td:nth-of-type(2)').attr('data-sort-value');
+  let donation = $(siteMember).find('td:nth-of-type(10)').attr('data-sort-value');
   let joinStatus = $(siteMember).find('td:nth-of-type(2) .join_status').text();
+  
 
   clanMembers[tag] = {
     role: role,
     name: name,
-    tag:tag
+    tag:tag,
+    donation: donation
   };
   
   if(joinStatus.replace(/\s/g,"") != ""){
