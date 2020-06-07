@@ -22,11 +22,14 @@ export const PAGE_PUPPETEER_OPTS = {
     waitUntil: 'networkidle2',
     timeout: 1 * 60 * 1000
   };
+  
+export const SLEEP_TIME = 10 * 1000;
 
 export async function getPageContent(url, fileName = null){
     let browser = await puppeteer.launch(LAUNCH_PUPPETEER_OPTS);
     let page = await browser.newPage();
     await page.goto(url, PAGE_PUPPETEER_OPTS);
+    await page.waitFor(SLEEP_TIME)
 
     if (fileName){
       await generatePDF(page, fileName);
