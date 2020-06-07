@@ -3,11 +3,12 @@ import cherio from 'cherio';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const SITE = process.env.CLAN_URL
+const SITE = process.env.CLAN_URL;
+const REPORT_FILENAME = 'Info';
 
 export default async function clanDataImporter(){
 
-let content = await getPageContent(SITE, 'Info');
+let content = await getPageContent(SITE, REPORT_FILENAME);
 let $ = cherio.load(content);
 let clanMembers = {};
 

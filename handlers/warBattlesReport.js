@@ -1,35 +1,37 @@
 export async function missBattlePlayers(data){
-    let missBattleMembers = [];
+  const BATTLE_SCORE_ABSENT = 0;
+  let missBattleMembers = [];
 
-    for (let [key, value] of Object.entries(data)){
-      if(value.lastBattlesScore == 0){
-      missBattleMembers.push([value.name + ' [' + value.tag + ']']);
-      }
+  for (let [key, value] of Object.entries(data)){
+    if(value.lastBattlesScore == BATTLE_SCORE_ABSENT){
+    missBattleMembers.push([value.name + ' [' + value.tag + ']']);
     }
-  
-    return missBattleMembers;
   }
+  
+  return missBattleMembers;
+}
 
 export async function topPlayersRank(data){
-    let topBattleMembers =[];
+  const BATTLE_SCORE_UNSUCCESS_COUNT = 32;
+  let topBattleMembers =[];
 
   for(let [key, value] of Object.entries(data)){
-    if(value.lastBattlesScore > 32){
+    if(value.lastBattlesScore > BATTLE_SCORE_UNSUCCESS_COUNT){
       topBattleMembers.push([value.name + ' [' + value.tag + ']']);
     }
   }
 
-    return topBattleMembers;
+  return topBattleMembers;
 }
 
 export async function bestWinRate(data){
   let topPlayer = false;
 
-    for(let [tag, player] of Object.entries(data)){
-      if((player.battlesCount > 7) && ( !topPlayer || (player.winRate > topPlayer.winRate))){
-        topPlayer = player;
-      }
+  for(let [tag, player] of Object.entries(data)){
+    if((player.battlesCount > 7) && ( !topPlayer || (player.winRate > topPlayer.winRate))){
+      topPlayer = player;
     }
+  }
 
-    return topPlayer;
+  return topPlayer;
 }

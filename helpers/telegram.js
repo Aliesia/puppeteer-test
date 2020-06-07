@@ -11,7 +11,7 @@ dotenv.config();
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
-const emoji = emojize.emoji
+const emoji = emojize.emoji;
 
 let warData;
 

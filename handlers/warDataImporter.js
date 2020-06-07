@@ -4,10 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const WARPAGE = process.env.CLAN_URL + '/war/analytics';
+const REPORT_FILENAME = 'warPage';
 
 export default async function warDataImporter(clanMembers){
 
-    let warContent = await getPageContent(WARPAGE, 'warPage');
+    let warContent = await getPageContent(WARPAGE, REPORT_FILENAME);
     let $ = cherio.load(warContent);
 
     $('.war_table_wrapper tbody .war_member').each((i, contentRowLink) => {
