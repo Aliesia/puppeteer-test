@@ -24,7 +24,7 @@ $('#roster tbody tr').each((i, siteMember) => {
     role: role,
     name: name,
     tag:tag,
-    donation: donation
+    donation: parseInt(donation)
   };
   
   if(joinStatus.replace(/\s/g,"") != ""){

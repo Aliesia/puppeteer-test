@@ -3,6 +3,7 @@ import emojize from 'node-emoji';
 
 import inactiveMembersReport from '../handlers/inactiveReport.js'
 import {missBattlePlayers, topPlayersRank, bestWinRate} from '../handlers/warBattlesReport.js'
+import {topDonationMember} from '../handlers/donationReport.js'
 import clanDataImporter from '../handlers/clanDataImporter.js'
 import warDataImporter from '../handlers/warDataImporter.js'
 import TelegramBot from 'node-telegram-bot-api';
@@ -101,6 +102,16 @@ bot.on('message', async (msg) => {
         }
 
         response = response + await fetchBestWinRate(warData);       
+    }
+
+    if (isInit || msg.text.toString().toLowerCase().indexOf('донат') === 0){
+        async function fetchTopDonationMember(warData){
+            let topPlayer = await topDonationMember(warData);
+
+            return ' \n' + 'Новачок з найкращим донатом' + ' \n' + emoji.heart + '=>' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + '] ' + topPlayer.donation + '</b>' + ' \n';
+        }
+
+        response = response + await fetchTopDonationMember(warData); 
     }
 
     if (response === ''){
