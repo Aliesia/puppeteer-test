@@ -16,10 +16,45 @@ const emoji = emojize.emoji;
 
 let warData;
 
-bot.on('message', async (msg) => {
+const CMD_MSG_UPDATE = 'update';
+const CMD_MSG_TOP = 'top';
+const CMD_MSG_PASSIVE = 'passive';
+const CMD_MSG_MISS = 'miss';
+const CMD_MSG_CHOSEN = 'chosen';
+const CMD_MSG_DONATE = 'donate';
 
+const COMMANDS_LIST = [
+    {
+        command: CMD_MSG_UPDATE,
+        description: 'оновити інформацію'
+    },
+    {
+        command: CMD_MSG_TOP,
+        description: 'перемогли в 3х останніх кв'
+    },
+    {
+        command: CMD_MSG_PASSIVE,
+        description: 'не зіграли в останніх 10 війнах'
+    },
+    {
+        command: CMD_MSG_MISS,
+        description: 'пропустили останніх 3х війни'
+    },
+    {
+        command: CMD_MSG_CHOSEN,
+        description: 'найкращий рейтинг в клан війні '
+    },
+    {
+        command: CMD_MSG_DONATE,
+        description: 'найвищий донат за тиждень '
+    },
+]
+
+
+bot.on('message', async (msg) => {
+    bot.setMyCommands(COMMANDS_LIST);
     let response = '';
-    let isInit = msg.text.toString().toLowerCase().indexOf('онови') === 0;
+    let isInit = msg.text.toString().toLowerCase().indexOf(CMD_MSG_UPDATE) === 1;
 
     if (isInit) {
         await bot.sendMessage(msg.chat.id,'Оновлюю інформацію ...');
@@ -37,12 +72,14 @@ bot.on('message', async (msg) => {
         '<b> пропустили </b> ' + ' \n' + 
         '-показати тих, що не зіграли в останніх 3х війнах' + ' \n' +
         '<b> обраний </b> ' + ' \n' + 
-        '-показати гравця з найкращим рейтингом у клан війнах' + ' \n', {parse_mode : "HTML"}
+        '-показати гравця з найкращим рейтингом у клан війнах' + ' \n'+
+        '<b> донат </b> ' + ' \n' + 
+        '-показати гравця з найвищим донатом за тиждень' + ' \n', {parse_mode : "HTML"}
         )
         
     } 
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf('топ') === 0) {
+    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_TOP) === 1) {
         async function fetchTopPlayerRank(warData){
             let topBattleMembers = await topPlayersRank(warData);
 
@@ -58,7 +95,7 @@ bot.on('message', async (msg) => {
         response = response + await fetchTopPlayerRank(warData);
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf('пасивні') === 0) {
+    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_PASSIVE) === 1) {
         async function fetchInactiveMembersReport(warData){
             let inactiveMembers = await inactiveMembersReport(warData);
         
@@ -74,7 +111,7 @@ bot.on('message', async (msg) => {
         response = response + await fetchInactiveMembersReport(warData);
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf('пропустили') === 0) {
+    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_MISS) === 1) {
         async function fetchMissBattlePlayers(warData){
             let missBattleMembers = await missBattlePlayers(warData);
 
@@ -90,7 +127,7 @@ bot.on('message', async (msg) => {
         response = response + await fetchMissBattlePlayers(warData); 
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf('обраний') === 0) {
+    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_CHOSEN) === 1) {
         async function fetchBestWinRate(warData){
             let topPlayer = await bestWinRate(warData);
 
@@ -104,7 +141,7 @@ bot.on('message', async (msg) => {
         response = response + await fetchBestWinRate(warData);       
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf('донат') === 0){
+    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_DONATE) === 1){
         async function fetchTopDonationMember(warData){
             let topPlayer = await topDonationMember(warData);
 
