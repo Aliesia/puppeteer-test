@@ -1,18 +1,14 @@
-import chalk from 'chalk';
 import TelegramBot from 'node-telegram-bot-api';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import inactiveMembersReport from '../handlers/inactiveReport.js'
-import {missBattlePlayers, topPlayersRank, bestWinRate} from '../handlers/warBattlesReport.js'
-import {topDonationMember} from '../handlers/donationReport.js'
-import clanDataImporter from '../handlers/clanDataImporter.js'
-import warDataImporter from '../handlers/warDataImporter.js'
 import HTMLResponsePresenter from '../presenters/HTMLPresenter.js'
+import scrapper from '../handlers/scrapper.js'
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 const presenter = new HTMLResponsePresenter();
+const SCRAPPER = new scrapper();
 
 let warData;
 
@@ -58,7 +54,7 @@ bot.on('message', async (msg) => {
 
     if (isInit) {
         await bot.sendMessage(msg.chat.id,'Оновлюю інформацію ...');
-        warData = await getData();
+        warData = await SCRAPPER.getData();
         response = response + 'Оновлено!' + ' \n' + ' \n';
     } 
 
@@ -67,53 +63,23 @@ bot.on('message', async (msg) => {
     } 
 
     if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_TOP) === 1) {
-        async function fetchTopPlayerRank(warData){
-            let topBattleMembers = await topPlayersRank(warData);
-            
-            return presenter.topPlayersRank(topBattleMembers);
-        }
-
-        response = response + await fetchTopPlayerRank(warData);
+        response = response + presenter.topPlayersRank(await SCRAPPER.fetchTopPlayerRank(warData));
     }
 
     if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_PASSIVE) === 1) {
-        async function fetchInactiveMembersReport(warData){
-            let inactiveMembers = await inactiveMembersReport(warData);
-            
-            return presenter.inactiveMembersReport(inactiveMembers);
-        }
-
-        response = response + await fetchInactiveMembersReport(warData);
+        response = response + presenter.inactiveMembersReport(await SCRAPPER.fetchInactiveMembersReport(warData));
     }
 
     if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_MISS) === 1) {
-        async function fetchMissBattlePlayers(warData){
-            let missBattleMembers = await missBattlePlayers(warData);
-            
-            return presenter.missBattlePlayers(missBattleMembers);
-        }
-
-        response = response + await fetchMissBattlePlayers(warData); 
+        response = response + presenter.missBattlePlayers(await SCRAPPER.fetchMissBattlePlayers(warData)); 
     }
 
     if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_CHOSEN) === 1) {
-        async function fetchBestWinRate(warData){
-            let topPlayer = await bestWinRate(warData);
-            
-            return presenter.bestWinRate(topPlayer);
-        }
-
-        response = response + await fetchBestWinRate(warData);       
+        response = response + presenter.bestWinRate(await SCRAPPER.fetchBestWinRate(warData));       
     }
 
     if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_DONATE) === 1){
-        async function fetchTopDonationMember(warData){
-            let topPlayer = await topDonationMember(warData);
-            
-            return presenter.topDonationMember(topPlayer);
-        }
-
-        response = response + await fetchTopDonationMember(warData); 
+        response = response + presenter.topDonationMember(await SCRAPPER.fetchTopDonationMember(warData)); 
     }
 
     if (response === ''){
@@ -122,14 +88,3 @@ bot.on('message', async (msg) => {
 
     return bot.sendMessage(msg.chat.id, response, {parse_mode : "HTML"});
 });
-
-async function getData(){
-    try{
-        let clanMembers = await clanDataImporter();
-
-        return warDataImporter(clanMembers);
-      }catch (error){
-        console.log(chalk.red('error: \n'));
-        console.log(error);
-      }
-}
