@@ -48,9 +48,15 @@ const COMMANDS_LIST = [
 
 
 bot.on('message', async (msg) => {
+    function isCommand(command){
+        return msg.text.toString().toLowerCase().indexOf(command) === 1;
+    }
+    function isMessage(message){
+        return msg.text.toString().toLowerCase().indexOf(message) === 0;
+    }
     bot.setMyCommands(COMMANDS_LIST);
     let response = '';
-    let isInit = msg.text.toString().toLowerCase().indexOf(CMD_MSG_UPDATE) === 1;
+    let isInit = isCommand(CMD_MSG_UPDATE);
 
     if (isInit) {
         await bot.sendMessage(msg.chat.id,'Оновлюю інформацію ...');
@@ -58,27 +64,27 @@ bot.on('message', async (msg) => {
         response = response + 'Оновлено!' + ' \n' + ' \n';
     } 
 
-    if (msg.text.toString().toLowerCase().indexOf('хай') === 0) {
+    if (isMessage('хай')) {
         await bot.sendMessage(msg.chat.id, presenter.hiResponse(msg), {parse_mode : "HTML"})
     } 
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_TOP) === 1) {
+    if (isInit || isCommand(CMD_MSG_TOP)) {
         response = response + presenter.topPlayersRank(await SCRAPPER.fetchTopPlayerRank(warData));
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_PASSIVE) === 1) {
+    if (isInit || isCommand(CMD_MSG_PASSIVE)) {
         response = response + presenter.inactiveMembersReport(await SCRAPPER.fetchInactiveMembersReport(warData));
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_MISS) === 1) {
+    if (isInit || isCommand(CMD_MSG_MISS)) {
         response = response + presenter.missBattlePlayers(await SCRAPPER.fetchMissBattlePlayers(warData)); 
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_CHOSEN) === 1) {
+    if (isInit || isCommand(CMD_MSG_CHOSEN)) {
         response = response + presenter.bestWinRate(await SCRAPPER.fetchBestWinRate(warData));       
     }
 
-    if (isInit || msg.text.toString().toLowerCase().indexOf(CMD_MSG_DONATE) === 1){
+    if (isInit || isCommand(CMD_MSG_DONATE)){
         response = response + presenter.topDonationMember(await SCRAPPER.fetchTopDonationMember(warData)); 
     }
 
