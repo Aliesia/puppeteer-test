@@ -15,14 +15,14 @@ let clanMembers = {};
 $('#roster tbody tr').each((i, siteMember) => {
   let tag = $(siteMember).attr('data-tag');
   let role = $(siteMember).attr('data-role');
-  let name = $(siteMember).find('td:nth-of-type(2)').attr('data-sort-value');
+  let name = $(siteMember).find('td:nth-of-type(2) a').clone().children().remove().end().text();
   let donation = $(siteMember).find('td:nth-of-type(10)').attr('data-sort-value');
   let joinStatus = $(siteMember).find('td:nth-of-type(2) .join_status').text();
   
 
   clanMembers[tag] = {
     role: role,
-    name: name,
+    name: name.trim(),
     tag:tag,
     donation: parseInt(donation)
   };
