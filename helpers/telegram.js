@@ -18,6 +18,7 @@ const CMD_MSG_PASSIVE = 'passive';
 const CMD_MSG_MISS = 'miss';
 const CMD_MSG_CHOSEN = 'chosen';
 const CMD_MSG_DONATE = 'donate';
+const CMD_MSG_BEST_DONATE = 'donation';
 
 const COMMANDS_LIST = [
     {
@@ -44,6 +45,11 @@ const COMMANDS_LIST = [
         command: CMD_MSG_DONATE,
         description: 'найвищий донат за тиждень '
     },
+    {
+        command: CMD_MSG_BEST_DONATE,
+        description: 'найвищий донат за тиждень '
+    },
+
 ]
 
 
@@ -86,6 +92,10 @@ bot.on('message', async (msg) => {
 
     if (isInit || isCommand(CMD_MSG_DONATE)){
         response = response + presenter.topDonationMember(await SCRAPPER.fetchTopDonationMember(warData)); 
+    }
+
+    if (isInit || isCommand(CMD_MSG_BEST_DONATE)){
+        response = response + presenter.topDonation(await SCRAPPER.fetchTopDonation(warData)); 
     }
 
     if (response === ''){

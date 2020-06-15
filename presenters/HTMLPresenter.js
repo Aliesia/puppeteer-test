@@ -59,4 +59,8 @@ export default class HTMLResponsePresenter {
     topDonationMember(topPlayer){
         return ' \n' + 'Новачок з найкращим донатом' + ' \n' + emoji.heart + '=>' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + '] ' + topPlayer.donation + '</b>' + ' \n';
     }
+
+    topDonation(topPlayer){
+        return ' \n' + 'Найкращий донат зараз в клані у ' + ' \n' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + '] ' + '=>' + topPlayer.donation + '</b>' + emoji.moneybag + ' \n';
+    }
 }
