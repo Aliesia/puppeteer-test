@@ -24,7 +24,7 @@ export default class HTMLResponsePresenter {
 
     bestWinRate(topPlayer) {
         if (topPlayer != false){
-            return 'Гравець з найкращим рейтингом у клан війнах' + ' \n' + emoji.sunny + '=>' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + ']' + '</b>' + ' \n';
+            return 'Гравець з найкращим рейтингом у клан війнах' + ' \n' + emoji.sunny + '=>' + '<b>' + topPlayer.introduce + '</b>' + ' \n';
         } 
         
         return 'Не знайдено достойного гравця' + emoji.cry + ' \n';
@@ -61,10 +61,10 @@ export default class HTMLResponsePresenter {
     }
 
     topDonationMember(topPlayer){
-        return ' \n' + 'Новачок з найкращим донатом' + ' \n' + emoji.heart + '=>' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + '] ' + topPlayer.donation + '</b>' + ' \n';
+        return ' \n' + 'Новачок з найкращим донатом' + ' \n' + emoji.heart + '=>' + '<b>' + topPlayer.introduce + ' ' + topPlayer.donation + '</b>' + ' \n';
     }
 
     topDonation(topPlayer){
-        return ' \n' + 'Найкращий донат зараз в клані у ' + ' \n' + '<b>' + topPlayer.name + ' [' + topPlayer.tag + '] ' + '=>' + topPlayer.donation + '</b>' + emoji.moneybag + ' \n';
+        return ' \n' + 'Найкращий донат зараз в клані у ' + ' \n' + '<b>' + topPlayer.introduce + '=>' + topPlayer.donation + '</b>' + emoji.moneybag + ' \n';
     }
 }

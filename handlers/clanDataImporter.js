@@ -1,6 +1,7 @@
 import {getPageContent} from '../helpers/puppeteer.js';
 import cherio from 'cherio';
 import dotenv from 'dotenv';
+import Member from '../models/member.js';
 dotenv.config();
 
 const SITE = process.env.CLAN_URL;
@@ -20,12 +21,12 @@ $('#roster tbody tr').each((i, siteMember) => {
   let joinStatus = $(siteMember).find('td:nth-of-type(2) .join_status').text();
   
 
-  clanMembers[tag] = {
+  clanMembers[tag] = new Member({
     role: role,
     name: name.trim(),
     tag:tag,
     donation: parseInt(donation)
-  };
+  });
   
   if(joinStatus.replace(/\s/g,"") != ""){
     clanMembers[tag].join_status = joinStatus;

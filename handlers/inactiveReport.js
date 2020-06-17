@@ -1,9 +1,9 @@
 export default async function inactiveMembersReport(data){
     let inactiveMembers = []
   
-    for (let [key, value] of Object.entries(data)){
-        if(!('mia' in value) && !('join_status' in value)){
-          inactiveMembers.push([value.name + ' [' + value.tag + ']']);
+    for (let [key, member] of Object.entries(data)){
+        if(!('mia' in member) && !('join_status' in member)){
+          inactiveMembers.push([member.introduce]);
         }
     }
   
