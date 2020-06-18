@@ -1,34 +1,34 @@
 import chalk from 'chalk';
 
-import {missBattlePlayers, topPlayersRank, bestWinRate} from '../handlers/warBattlesReport.js';
-import inactiveMembersReport from '../handlers/inactiveReport.js';
-import {topDonationMember, topDonation} from '../handlers/donationReport.js';
+import FilterService from '../handlers/filterService.js';
 import clanDataImporter from '../handlers/clanDataImporter.js';
 import warDataImporter from '../handlers/warDataImporter.js';
 
+
 export default class Scrapper {
+
     async fetchTopPlayerRank(warData){
-        return topPlayersRank(warData);        
+        return FilterService.topPlayersRank(warData);        
     }
 
     async fetchInactiveMembersReport(warData){
-        return inactiveMembersReport(warData);
+        return FilterService.inactiveMembersReport(warData);
     }
 
     async fetchMissBattlePlayers(warData){
-        return missBattlePlayers(warData);
+        return FilterService.missBattlePlayers(warData);
     }
 
     async fetchBestWinRate(warData){
-        return bestWinRate(warData);
+        return FilterService.bestWinRate(warData);
     }
 
     async fetchTopDonationMember(warData){
-        return topDonationMember(warData);
+        return FilterService.topDonationMember(warData);
     }
 
     async fetchTopDonation(warData){
-        return topDonation(warData);
+        return FilterService.topDonation(warData);
     }
 
     async getData(){
