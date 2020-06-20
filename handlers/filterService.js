@@ -4,7 +4,7 @@ export default class FilterService {
         let inactiveMembers = []
       
         for (let [key, member] of Object.entries(data)){
-            if(!member.isMiaStatus && !member.isNew){
+            if(!member.isOnWarList && !member.isNew){
               inactiveMembers.push([member.introduce]);
             }
         }

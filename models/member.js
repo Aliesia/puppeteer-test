@@ -14,6 +14,9 @@ export default class Member {
  get isMiaStatus(){
      return 'mia' in this;
  }
+ get isOnWarList(){
+     return this.isMiaStatus;
+ }
  get isRoleMember(){
      return this.role == 'Member';
  }
