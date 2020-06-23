@@ -1,3 +1,5 @@
+import importService from '../handlers/importSevice.js'
+
 export default class Member {
  constructor(options){
     this.role = options.role,
@@ -8,8 +10,26 @@ export default class Member {
  get introduce(){
      return this.name + ' [' + this.tag + '] '
  }
- get isNew(){
+ get hasJoinStatus(){
      return 'join_status' in this;
+ }
+ async isNew(){
+        return this.isNewMember();
+ }
+ async isNewMember() {
+    let d = new Date();
+    let short_ts = await importService.userClanHistoryImporter(this);
+    let playerDay = short_ts.replace(/06-/g, "");
+    
+    for (var i = 1; i<=5; i++) {
+        if(playerDay == d.getDate()){
+            return true;
+        }
+    
+        d.setDate(d.getDate() - 1);
+    }
+
+    return false; 
  }
  get isMiaStatus(){
      return 'mia' in this;

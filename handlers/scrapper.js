@@ -10,7 +10,7 @@ export default class Scrapper {
     }
 
     async fetchInactiveMembersReport(warData){
-        return FilterService.inactiveMembersReport(warData);
+        return await FilterService.inactiveMembersReport(warData);
     }
 
     async fetchMissBattlePlayers(warData){

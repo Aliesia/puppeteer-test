@@ -1,11 +1,11 @@
 export default class FilterService {
-
-    static inactiveMembersReport(data){
+    static async inactiveMembersReport(data){
         let inactiveMembers = []
       
         for (let [key, member] of Object.entries(data)){
-            if(!member.isOnWarList && !member.isNew){
-              inactiveMembers.push([member.introduce]);
+            if(!member.isOnWarList && !member.hasJoinStatus){
+              if(!await member.isNew())
+                inactiveMembers.push([member.introduce]);
             }
         }
       

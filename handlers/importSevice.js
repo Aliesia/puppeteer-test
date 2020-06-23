@@ -63,4 +63,26 @@ export default class ImportService {
     
         return clanMembers;
     }
+
+    static userClanHistoryImporter(member){
+      async function fetchClanHistory(member) {
+        async function toJson(text){
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(JSON.parse(text))
+            })
+          })
+        }
+        const SITE = 'https://royaleapi.com/data/player/clan_history/?clan_tag=89VLQR0&player_tag=' + member.tag;
+
+        let content = await getPageContent(SITE);
+        let $ = await cherio.load(content);
+        let body = await $('pre').text();
+        let json = await toJson(body);
+
+        return json.history[0].short_ts;
+      }
+      
+      return fetchClanHistory(member);
+  }
 }
