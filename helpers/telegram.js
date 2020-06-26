@@ -19,6 +19,7 @@ const CMD_MSG_MISS = 'miss';
 const CMD_MSG_CHOSEN = 'chosen';
 const CMD_MSG_DONATE = 'donate';
 const CMD_MSG_BEST_DONATE = 'donation';
+const CMD_MSG_MISSED_COLLECTING = 'collection';
 
 const COMMANDS_LIST = [
     {
@@ -49,7 +50,11 @@ const COMMANDS_LIST = [
         command: CMD_MSG_BEST_DONATE,
         description: 'найвищий донат за тиждень '
     },
-
+    {
+        command: CMD_MSG_MISSED_COLLECTING,
+        description: 'пропустив збір карт на кв '
+    }
+    
 ]
 
 
@@ -96,6 +101,10 @@ bot.on('message', async (msg) => {
 
     if (isInit || isCommand(CMD_MSG_BEST_DONATE)){
         response = response + presenter.topDonation(await SCRAPPER.fetchTopDonation(warData)); 
+    }
+
+    if (isInit || isCommand(CMD_MSG_MISSED_COLLECTING)){
+        response = response + presenter.missedCollectingCard(await SCRAPPER.fetchMissedCollectingCard(warData)); 
     }
 
     if (response === ''){

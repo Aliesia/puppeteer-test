@@ -60,6 +60,21 @@ export default class ImportService {
           clanMembers[tag].battlesCount = parseInt($(contentRowLink).find('td:nth-child(3)').text());
     
         })
+
+        $('div:nth-child(5) > div > table > tbody > tr').each((i, contentRowLink)=> {
+          if ($(contentRowLink).attr('data-current') != 1){
+            return;
+          }
+
+          let href = $(contentRowLink).find('td a').attr('href');
+          let tag = href.replace('/player/', '');
+
+          if (!clanMembers[tag]) {
+            return;
+          }
+          
+          clanMembers[tag].negative_indicator = $(contentRowLink).find('.negative_indicator').length;
+        })
     
         return clanMembers;
     }

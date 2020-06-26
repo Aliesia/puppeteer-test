@@ -4,6 +4,7 @@
 * ~~add bot command best new member donation~~
 * ~~move chat bot commands to commands list~~
 * ~~add bot command best donation~~
+* ~~add bot command missed collection day game~~
 * add bot command absent players 
 
 

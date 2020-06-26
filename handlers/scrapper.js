@@ -29,6 +29,10 @@ export default class Scrapper {
         return FilterService.topDonation(warData);
     }
 
+    async fetchMissedCollectingCard(warData){
+        return FilterService.missedCollectingCard(warData);
+    }
+
     async getData(){
         try{
             let clanMembers = await ImportService.clanDataImporter();

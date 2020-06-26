@@ -12,7 +12,8 @@ export default class HTMLResponsePresenter {
         `<b> /miss </b> -показати тих, що не зіграли в останніх 3х війнах \n` +
         `<b> /chosen </b> -показати гравця з найкращим рейтингом у клан війнах \n` +
         `<b> /donate </b> -показати новачка з найвищим донатом \n` +
-        `<b> /donation </b> -показати гравця з найвищим донатом \n`;
+        `<b> /donation </b> -показати гравця з найвищим донатом \n`+
+        `<b> /collection </b> -показати гравців, що не зіграли в зборі 3/3 \n`;
     }
 
     bestWinRate(topPlayer) {
@@ -56,5 +57,14 @@ export default class HTMLResponsePresenter {
 
     topDonation(topPlayer){
         return `Найкращий донат зараз в клані у ${emoji.star} => \n<b>${topPlayer.introduce} => ${topPlayer.donation}</b> ${emoji.moneybag} \n \n`;
+    }
+
+    missedCollectingCard(missedCollectionMembers){
+        if (missedCollectionMembers.length == 0){
+            return `Чудово! Всі грають 3/3 на зборі карт, вже 10 кв підряд ${emoji.tada} \n \n`;
+        }
+
+        return `Не зіграли 3/3 на зборі карт у останніх 10 кв ${emoji.weary} : \n<b>${missedCollectionMembers.join(' \n')}</b> \n`+
+        `Всього: ${missedCollectionMembers.length} \n \n`;
     }
 }

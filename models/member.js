@@ -49,4 +49,7 @@ export default class Member {
  get hasMinBattleQuantity(){
      return this.battlesCount > 7;
  }
+ get missedCollection(){
+     return this.negative_indicator > 0;
+ }
 }

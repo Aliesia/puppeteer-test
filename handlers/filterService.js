@@ -71,5 +71,18 @@ export default class FilterService {
       
         return topDonationPlayer;
       }
+
+      static missedCollectingCard(data){
+        let missedCollectionMembers = [];
+      
+        for(let [key, member] of Object.entries(data)){
+          if(member.missedCollection){
+            missedCollectionMembers.push([member.introduce]);
+          }
+        }
+
+        return missedCollectionMembers;
+      }
+
       
 }
