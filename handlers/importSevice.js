@@ -73,7 +73,7 @@ export default class ImportService {
             return;
           }
           
-          clanMembers[tag].negative_indicator = $(contentRowLink).find('.negative_indicator').length;
+          clanMembers[tag].negative_indicator = $(contentRowLink).find('td:nth-child(n+5):nth-child(-n+7) .negative_indicator').length;
         })
     
         return clanMembers;
