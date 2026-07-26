@@ -1,6 +1,6 @@
 import {getPageContent} from '../helpers/puppeteer.js';
 import Member from '../models/member.js';
-import cherio from 'cherio';
+import * as cherio from 'cheerio';
 import dotenv from 'dotenv';
 dotenv.config();
 

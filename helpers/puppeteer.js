@@ -29,7 +29,7 @@ export async function getPageContent(url, fileName = null){
     let browser = await puppeteer.launch(LAUNCH_PUPPETEER_OPTS);
     let page = await browser.newPage();
     await page.goto(url, PAGE_PUPPETEER_OPTS);
-    await page.waitFor(SLEEP_TIME)
+    await new Promise(r => setTimeout(r, SLEEP_TIME))
 
     if (fileName){
       await generatePDF(page, fileName);
