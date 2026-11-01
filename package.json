@@ -22,7 +22,7 @@
     "dotenv": "^8.2.0",
     "node-emoji": "^1.10.0",
     "node-telegram-bot-api": "^1.2.0",
-    "puppeteer": "^25.0.0"
+    "puppeteer": "^25.16.0"
   },
   "type": "module"
 }
